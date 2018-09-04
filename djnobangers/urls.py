@@ -17,6 +17,6 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path('spotifyplayer/', include('spotifyplayer.urls')),
+    path('youtubeplayer/', include('youtubeplayer.urls')),
     path('admin/', admin.site.urls),
 ]
