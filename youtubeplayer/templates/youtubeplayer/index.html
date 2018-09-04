@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
+  <title>
+      DJ NoBangers
+  </title>
   <body>
+    <h1>DJ NoBangers</h1>
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
     <div id="player"></div>
 
@@ -19,7 +23,7 @@
         player = new YT.Player('player', {
           height: '390',
           width: '640',
-          videoId: 'M7lc1UVf-VE',
+          videoId: 'cUTCIO_zLyU',
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
@@ -38,8 +42,10 @@
       var done = false;
       function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.PLAYING && !done) {
-          setTimeout(stopVideo, 6000);
           done = true;
+        }
+        if (event.data == YT.PlayerState.ENDED && done) {
+          player.loadVideoById("BNzc6hG3yN4");
         }
       }
       function stopVideo() {
