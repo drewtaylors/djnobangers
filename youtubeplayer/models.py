@@ -12,4 +12,5 @@ class YTVideo(models.Model):
 
     title = models.CharField(max_length=200)
     url = models.CharField(max_length=200)
-    pub_date = models.DateTimeField()
+    next_url = models.CharField(max_length=200)
+    pub_date = models.DateTimeField(auto_now_add=True)
