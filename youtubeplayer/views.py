@@ -7,7 +7,7 @@ def index(request):
         yt = YTVideoForm(request.POST)
         if yt.is_valid():
             data = yt.save()
-            return render(request, 'youtubeplayer/index.html', {
+            return render(request, 'index.html', {
                 'youtube_id': data.url,
                 'next_youtube_id': "iVbqc_a3hYo",
                 'yt': yt
@@ -15,13 +15,13 @@ def index(request):
     else:
         yt = YTVideoForm()
 
-    return render(request, 'youtubeplayer/index.html', {
+    return render(request, 'index.html', {
         'youtube_id': 'cUTCIO_zLyU',
         'yt': yt
     })
 
 def add(request):
-    return render(request, 'youtubeplayer/add.html')
+    return render(request, 'add.html')
 
 def queue(request):
-    return render(request, 'youtubeplayer/queue.html')
+    return render(request, 'queue.html')
