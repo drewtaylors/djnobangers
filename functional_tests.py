@@ -31,7 +31,8 @@ class NewVisitorTest(unittest.TestCase):
         rows = table.find_elements_by_tag_name('tr')
 
         self.assertTrue(
-            any(row.text == '1: Eminem' for row in rows)
+            any(row.text == '1: Eminem' for row in rows),
+            "New youtube url did not appear in table"
         )
 
         self.fail('Finish the test!')
