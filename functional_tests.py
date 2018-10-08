@@ -27,13 +27,16 @@ class NewVisitorTest(unittest.TestCase):
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
 
+        # inputbox = self.browser.find_element_by_id('id_new_item')
+        # inputbox.send_keys('SWOG')
+        # inputbox.send_keys(Keys.ENTER)
+        # time.sleep(1)
+
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
 
-        self.assertTrue(
-            any(row.text == '1: Eminem' for row in rows),
-            "New youtube url did not appear in table"
-        )
+        self.assertIn('1: Eminem', [row.text for row in rows])
+        # self.assertIn('2: SWOG', [row.text for row in rows])
 
         self.fail('Finish the test!')
 
