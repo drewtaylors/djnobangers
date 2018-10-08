@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .forms import YTVideoForm
 from .models import YTVideo
+from .models import Item
 from django.http import HttpResponse
 
 def index(request):
@@ -17,16 +18,28 @@ def index(request):
     # else:
     #     yt = YTVideoForm()
 
-    yt = YTVideoForm()
+    # yt = YTVideoForm()
+    # item = Item()
+    # item.text = request.POST.get('item_text', '')
+    # item.save()
 
-    return render(request, 'index.html', {
-        'youtube_id': 'cUTCIO_zLyU',
-        'yt': yt,
-        'new_item_text': request.POST.get('item_text', ''),
-    })
+    # return render(request, 'index.html', {
+    #     'youtube_id': 'cUTCIO_zLyU',
+    #     'yt': yt,
+    #     'new_item_text': item.text,
+    # })
+
+    if request.method == 'POST':
+        Item.objects.create(text=request.POST['item_text'])
+        return redirect('/')
+    
+    items = Item.objects.all()
+    return render(request, 'index.html', {'items': items})
+
 
 def add(request):
     return render(request, 'add.html')
 
 def queue(request):
     return render(request, 'queue.html')
+    
