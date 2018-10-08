@@ -11,7 +11,12 @@ class NewVisitorTest(unittest.TestCase):
     def tearDown(self):
         self.browser.quit()
 
-    def test_can_generate_youtube_list(self):
+    def check_for_row_in_list_table(self, row_text):
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn(row_text, [row.text for row in rows])
+
+    def test_can_generate_and_retrieve_youtube_list(self):
         self.browser.get('http://localhost:8000')
         self.assertIn('DJ NoBangers', self.browser.title)
 
@@ -26,17 +31,16 @@ class NewVisitorTest(unittest.TestCase):
         inputbox.send_keys('Eminem')
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
+        
+        self.check_for_row_in_list_table('1: Eminem')
 
         inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('SWOG')
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
 
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-
-        self.assertIn('1: Eminem', [row.text for row in rows])
-        # self.assertIn('2: SWOG', [row.text for row in rows])
+        self.check_for_row_in_list_table('1: Eminem')
+        self.check_for_row_in_list_table('2: SWOG')
 
         self.fail('Finish the test!')
 
