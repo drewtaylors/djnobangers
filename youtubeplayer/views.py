@@ -34,8 +34,7 @@ def index(request):
         return redirect('/')
     
     items = Item.objects.all()
-    return render(request, 'index.html', {'items': items})
-
+    return render(request, 'index.html', {'items': items, 'youtube_id': 'cUTCIO_zLyU'})
 
 def add(request):
     return render(request, 'add.html')
