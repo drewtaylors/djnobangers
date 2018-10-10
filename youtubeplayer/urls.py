@@ -6,7 +6,8 @@ app_name = 'youtubeplayer'
 urlpatterns = [
     path('', views.index, name='index'),
     path('youtubeplayer/new', views.new_list, name='new_list'),
-    path('youtubeplayer/the-only-list-in-the-world/', views.view_list, name='view_list'),
+    path('youtubeplayer/<int:list_id>/', views.view_list, name='view_list'),
+    path('youtubeplayer/<int:list_id>/add_item', views.add_item, name='add_item'),
     path('add', views.add, name='add'),
     path('queue', views.queue, name='queue'),
 ]

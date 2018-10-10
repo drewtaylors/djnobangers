@@ -75,7 +75,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.wait_for_row_in_list_table('1: Kendrick Lamar')
 
         user_list_url = self.browser.current_url
-        self.assertRegex('/lists/.+')
+        self.assertRegex(user_list_url, '/youtubeplayer/.+')
         self.assertNotEqual(user_list_url, drew_list_url)
 
         page_text = self.browser.find_element_by_tag_name('body').text
