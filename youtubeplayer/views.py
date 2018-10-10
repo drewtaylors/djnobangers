@@ -28,13 +28,13 @@ def index(request):
     #     'yt': yt,
     #     'new_item_text': item.text,
     # })
-
-    if request.method == 'POST':
-        Item.objects.create(text=request.POST['item_text'])
-        return redirect('/youtubeplayer/the-only-list-in-the-world/')
     
     items = Item.objects.all()
     return render(request, 'index.html')
+
+def new_list(request):
+    Item.objects.create(text=request.POST['item_text'])
+    return redirect('/youtubeplayer/the-only-list-in-the-world/')
 
 def view_list(request):
     items = Item.objects.all()

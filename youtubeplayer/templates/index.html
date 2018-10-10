@@ -8,15 +8,17 @@
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
     <div id="player"></div>
 
+    <!--
     <form method="POST">
       {{yt}}
       {% csrf_token %}
       <input type="submit"/>
     </form>
+    -->
 
     <h2>Start a new playlist</h2>
 
-    <form method="POST" action="/">
+    <form method="POST" action="/youtubeplayer/new">
       <input name="item_text" id="id_new_item" placeholder="Enter a youtube link"/>
       {% csrf_token %}
     </form>
