@@ -15,5 +15,9 @@ class YTVideo(models.Model):
     next_url = models.CharField(max_length=200)
     pub_date = models.DateTimeField(auto_now_add=True)
 
+class List(models.Model):
+    pass
+
 class Item(models.Model):
     text = models.TextField(default='')
+    list = models.ForeignKey(List, on_delete=models.CASCADE, default=None)
