@@ -31,10 +31,14 @@ def index(request):
 
     if request.method == 'POST':
         Item.objects.create(text=request.POST['item_text'])
-        return redirect('/')
+        return redirect('/youtubeplayer/the-only-list-in-the-world/')
     
     items = Item.objects.all()
-    return render(request, 'index.html', {'items': items, 'youtube_id': 'cUTCIO_zLyU'})
+    return render(request, 'index.html')
+
+def view_list(request):
+    items = Item.objects.all()
+    return render(request, 'list.html', {'items': items})
 
 def add(request):
     return render(request, 'add.html')

@@ -7,6 +7,7 @@ import time
 MAX_WAIT = 10
 
 class NewVisitorTest(LiveServerTestCase):
+    
     def setUp(self):
         self.browser = webdriver.Chrome()
 
@@ -14,10 +15,6 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser.quit()
 
     def wait_for_row_in_list_table(self, row_text):
-        # table = self.browser.find_element_by_id('id_list_table')
-        # rows = table.find_elements_by_tag_name('tr')
-        # self.assertIn(row_text, [row.text for row in rows])
-
         start_time = time.time()
         while True:
             try:
@@ -38,9 +35,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('DJ NoBangers', header_text)
 
         inputbox = self.browser.find_element_by_id('id_new_item')
-        self.assertEqual(
-            inputbox.get_attribute('placeholder'), 'Enter a youtube link'
-        )
+        self.assertEqual(inputbox.get_attribute('placeholder'), 'Enter a youtube link')
 
         inputbox.send_keys('Eminem')
         inputbox.send_keys(Keys.ENTER)
@@ -63,7 +58,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.wait_for_row_in_list_table('1: SWOG')
 
         drew_list_url = self.browser.current_url
-        self.assertRegex(drew_list_url, '/lists/.+')
+        self.assertRegex(drew_list_url, '/youtubeplayer/.+')
 
         # new user - opens up new page
         self.browser.quit()
