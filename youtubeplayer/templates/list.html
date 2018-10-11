@@ -1,22 +1,13 @@
-<html>
+{% extends 'base.html' %}
 
-  <title>DJ NoBangers</title>
-  
-  <body>
-    
-    <h1>DJ NoBangers</h1>
-    <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-    <div id="player"></div>
+{% block header_text %}Your Playlist{% endblock %}
 
-    <form method="POST" action="/youtubeplayer/{{ list.id }}/add_item">
-      <input name="item_text" id="id_new_item" placeholder="Enter a youtube link"/>
-      {% csrf_token %}
-    </form>
-    
-    <table id="id_list_table">
-      {% for item in list.item_set.all %}
-        <tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
-      {% endfor %}
-    </table>
-  </body>
-</html>
+{% block form_action %}/youtubeplayer/{{ list.id }}/add_item{% endblock %}
+
+{% block table %}
+  <table id="id_list_table">
+    {% for item in list.item_set.all %}
+      <tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
+    {% endfor %}
+  </table>
+{% endblock %}
