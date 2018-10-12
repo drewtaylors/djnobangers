@@ -1,4 +1,4 @@
-from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import WebDriverException
@@ -6,7 +6,7 @@ import time
 
 MAX_WAIT = 10
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
     
     def setUp(self):
         self.browser = webdriver.Chrome()
@@ -32,7 +32,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('DJ NoBangers', self.browser.title)
 
         header_text = self.browser.find_element_by_tag_name('h1').text
-        self.assertIn('DJ NoBangers', header_text)
+        self.assertIn('Start a new playlist', header_text)
 
         inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertEqual(inputbox.get_attribute('placeholder'), 'Enter a youtube link')
@@ -99,7 +99,7 @@ class NewVisitorTest(LiveServerTestCase):
             inputbox.location['x'] + inputbox.size['width'] / 2, 512, delta = 10
         )
 
-        
+
 
 
 
