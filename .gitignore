@@ -4,3 +4,4 @@ __pycache__
 *.pyc
 .vscode/static
 .env
+virtualenv
