@@ -19,5 +19,6 @@ class List(models.Model):
     pass
 
 class Item(models.Model):
-    text = models.TextField(default='')
+    url = models.TextField(default='')
+    title = models.TextField(default='')
     list = models.ForeignKey(List, on_delete=models.CASCADE, default=None)

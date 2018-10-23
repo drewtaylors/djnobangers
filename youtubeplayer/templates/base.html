@@ -9,38 +9,13 @@
     <title>DJ NoBangers</title>
     <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/base.css" rel="stylesheet">
-    {% block css_file %}{% endblock %}
+    {% block css %}{% endblock %}
   </head>
  
   <body>
-    <div class="container">
-      <br>
-      <div class="row">
-        <div class="embed-responsive embed-responsive-16by9 col-xs-12 text-center">
-          {% block ytplayer %}
-          {% endblock %}
-        </div>
-      </div>
-      <br>
-      <div class="row">
-        <div class="col-md-8 col-md-offset-2 jumbotron">
-          <div class="text-center">
-            <h1>{% block header_text %}{% endblock %}</h1>
-            <form method="POST" action="{% block form_action %}{% endblock %}">
-              <input name="item_text" id="id_new_item"
-              class="form-control input-lg"
-              placeholder="Enter a youtube link"/>
-              {% csrf_token %}
-            </form>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-          {% block table %}
-          {% endblock %}
-        </div>
-      </div>
-    </div>
+    {% block content %}{% endblock %}
   </body>
+
+  {% block script %}
+  {% endblock %}
 </html>

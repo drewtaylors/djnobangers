@@ -1,22 +1,42 @@
 {% extends 'base.html' %}
 
-{% block css_file %}<link href="/static/list.css" rel="stylesheet">{% endblock %}
+{% block css %}<link href="/static/list.css" rel="stylesheet">{% endblock %}
 
-{% block header_text %}Your Playlist{% endblock %}
-
-{% block form_action %}/youtubeplayer/{{ list.id }}/add_item{% endblock %}
-
-{% block table %}
-  <table id="id_list_table" class="table">
-    {% for item in list.item_set.all %}
-      <tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
-    {% endfor %}
-  </table>
+{% block content %}
+  <div class="container">
+    <br>
+    <div class="row">
+      <div class="embed-responsive embed-responsive-16by9 col-xs-12 text-center">
+        <div id="player"></div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-8 offset-md-2 jumbotron">
+        <div class="text-center">
+          <h1>Your Playlist</h1>
+          <form method="POST" action="/youtubeplayer/{{ list.id }}/add_item">
+            <input name="item_url" id="id_new_item"
+            class="form-control input-lg"
+            placeholder="Enter a youtube link"/>
+            {% csrf_token %}
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <table id="id_list_table" class="table table-dark">
+          {% for item in list.item_set.all %}
+            <tr><td>{{ forloop.counter }}: {{ item.url }}</td></tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
 {% endblock %}
 
-{% block ytplayer %}
-  <div id="player"></div>
-
+{% block script %}
   <script>
     // 2. This code loads the IFrame Player API code asynchronously.
     var tag = document.createElement('script');
