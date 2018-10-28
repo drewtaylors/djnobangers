@@ -3,6 +3,7 @@ from .forms import YTVideoForm
 from .models import YTVideo
 from .models import Item, List
 from django.http import HttpResponse
+from .utils import parse_youtube_url
 
 def index(request):
     # if request.method == 'POST':
@@ -34,16 +35,16 @@ def index(request):
 
 def new_list(request):
     list_ = List.objects.create()
-    Item.objects.create(url=request.POST['item_url'], list=list_)
+    Item.objects.create(url=parse_youtube_url(request.POST['item_url']), list=list_)
     return redirect(f'/youtubeplayer/{list_.id}/')
 
 def view_list(request, list_id):
     list_ = List.objects.get(id=list_id)
-    return render(request, 'list.html', {'list': list_})
+    return render(request, 'list.html', {'list': list_, 'next_youtube_url': list_.item_set.first().url})
 
 def add_url(request, list_id):
     list_ = List.objects.get(id=list_id)
-    Item.objects.create(url=request.POST['item_url'], title='', list=list_)
+    Item.objects.create(url=parse_youtube_url(request.POST['item_url']), title='', list=list_)
     return redirect(f'/youtubeplayer/{list_.id}/')
 
 def add(request):

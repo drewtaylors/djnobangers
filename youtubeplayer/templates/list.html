@@ -15,7 +15,7 @@
       <div class="col-md-8 offset-md-2 jumbotron">
         <div class="text-center">
           <h1>Your Playlist</h1>
-          <form method="POST" action="/youtubeplayer/{{ list.id }}/add_item">
+          <form method="POST" action="/youtubeplayer/{{ list.id }}/add_url">
             <input name="item_url" id="id_new_item"
             class="form-control input-lg"
             placeholder="Enter a youtube link"/>
@@ -52,7 +52,7 @@
       player = new YT.Player('player', {
         height: '390',
         width: '640',
-        videoId: 'PR9-nNT5PNc',
+        videoId: '{{ list.item_set.first.url }}',
         events: {
           'onReady': onPlayerReady,
           'onStateChange': onPlayerStateChange
@@ -74,7 +74,7 @@
         done = true;
       }
       if (event.data == YT.PlayerState.ENDED && done) {
-        player.loadVideoById('{{next_youtube_id}}');
+        player.loadVideoById('{{ list.item_set.first.url }}');
       }
     }
     function stopVideo() {
