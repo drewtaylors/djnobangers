@@ -19,6 +19,7 @@ from youtubeplayer import views as youtubeplayer_views
 
 urlpatterns = [
     path('', youtubeplayer_views.index, name='index'),
+    path('playlist/', include('playlist.urls')),
     path('youtubeplayer/', include('youtubeplayer.urls')),
     path('admin/', admin.site.urls),
 ]

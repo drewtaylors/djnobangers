@@ -1,3 +1,5 @@
 django==2.1
 gunicorn==19.9.0
 regex==2018.8.29
+channels==2.1.5
+channels-redis==2.3.1
