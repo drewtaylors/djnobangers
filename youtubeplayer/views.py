@@ -16,7 +16,7 @@ def new_list(request):
 
 def view_list(request, list_id):
     list_ = List.objects.get(id=list_id)
-    return render(request, 'youtubeplayer/list.html', {'list': list_, 'next_youtube_url': list_.item_set.first().url})
+    return render(request, 'youtubeplayer/list.html', {'list': list_, 'list_id': list_id})
 
 def add_url(request, list_id):
     list_ = List.objects.get(id=list_id)
