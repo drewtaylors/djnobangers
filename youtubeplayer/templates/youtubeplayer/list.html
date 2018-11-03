@@ -36,6 +36,8 @@
 {% block script %}
   <script>
     var listID = {{ list_id }};
+    var playlist = ["{{ list.item_set.first.url }}"];
+    var index = 0;
 
     var playlistSocket = new WebSocket(
         'ws://' + window.location.host + '/ws/playlist/' + listID + '/');
@@ -44,7 +46,9 @@
         var data = JSON.parse(e.data);
         var message = data['message'];
         var row = document.querySelector('#id_list_table').insertRow(-1);
-        row.insertCell(0).innerHTML = message;
+        index += 1;
+        row.insertCell(0).innerHTML = (index+1) + ": " + message;
+        playlist.push(message);
     };
 
     playlistSocket.onclose = function(e) {
@@ -99,7 +103,11 @@
         done = true;
       }
       if (event.data == YT.PlayerState.ENDED && done) {
-        player.loadVideoById('{{ list.item_set.first.url }}');
+        console.log(playlist);
+        if (index <= playlist.length) {
+          player.loadVideoById(playlist[index]);
+          console.log(playlist[index]);
+        }
       }
     }
     function stopVideo() {
