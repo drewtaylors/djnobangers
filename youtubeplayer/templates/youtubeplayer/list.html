@@ -103,10 +103,8 @@
         done = true;
       }
       if (event.data == YT.PlayerState.ENDED && done) {
-        console.log(playlist);
         if (index <= playlist.length) {
           player.loadVideoById(playlist[index]);
-          console.log(playlist[index]);
         }
       }
     }

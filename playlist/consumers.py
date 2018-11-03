@@ -1,4 +1,6 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
+from channels.db import database_sync_to_async
+from youtubeplayer.models import Item, List
 import json
 
 class PlaylistConsumer(AsyncWebsocketConsumer):
@@ -35,6 +37,9 @@ class PlaylistConsumer(AsyncWebsocketConsumer):
             }
         )
 
+        # store song in DB
+        await self.post_song(message)
+
     # Receive message from room group
     async def playlist_message(self, event):
         message = event['message']
@@ -43,3 +48,9 @@ class PlaylistConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({
             'message': message
         }))
+
+    @database_sync_to_async
+    def post_song(self, url):
+        list_ = List.objects.get(id=self.room_name)
+        Item.objects.create(url=url, title='', list=list_)
+
