@@ -7,7 +7,7 @@ User=ubuntu
 WorkingDirectory=/home/ubuntu/sites/DOMAIN
 EnvironmentFile=/home/ubuntu/sites/DOMAIN/.env
 
-ExecStart=/home/ubuntu/sites/DOMAIN/virtualenv/bin/daphne -u /tmp/daphne-DOMAIN.socket djnobangers.wsgi:application
+ExecStart=/home/ubuntu/sites/DOMAIN/virtualenv/bin/daphne -u /tmp/daphne-DOMAIN.socket djnobangers.asgi:application
 
 [Install]
 WantedBy=multi-user.target
