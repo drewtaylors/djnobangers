@@ -23,11 +23,7 @@
     </div>
     <div class="row">
       <div class="col-md-8 offset-md-2">
-        <table id="id_list_table" class="table table-dark">
-          {% for item in list.item_set.all %}
-            <tr><td>{{ forloop.counter }}: {{ item.url }}</td></tr>
-          {% endfor %}
-        </table>
+        <table id="id_list_table" class="table table-dark"/>
       </div>
     </div>
   </div>
@@ -36,8 +32,20 @@
 {% block script %}
   <script>
     var listID = {{ list_id }};
-    var playlist = ["{{ list.item_set.first.url }}"];
-    var index = 0;
+    var playlist = [];
+    var table = document.querySelector('#id_list_table');
+    var current_index = 0;
+
+    // generate playlist in JS and HTML
+    {% for item in list.item_set.all %}
+      addSong('{{ item.url }}');
+    {% endfor %}
+
+    function addSong(url) {
+      playlist.push(url);
+      var row = table.insertRow(-1);
+      row.insertCell(0).innerHTML = table.rows.length + ": " + url;
+    }
 
     var playlistSocket = new WebSocket(
         'ws://' + window.location.host + '/ws/playlist/' + listID + '/');
@@ -45,10 +53,7 @@
     playlistSocket.onmessage = function(e) {
         var data = JSON.parse(e.data);
         var message = data['message'];
-        var row = document.querySelector('#id_list_table').insertRow(-1);
-        index += 1;
-        row.insertCell(0).innerHTML = (index+1) + ": " + message;
-        playlist.push(message);
+        addSong(message);
     };
 
     playlistSocket.onclose = function(e) {
@@ -103,8 +108,9 @@
         done = true;
       }
       if (event.data == YT.PlayerState.ENDED && done) {
-        if (index <= playlist.length) {
-          player.loadVideoById(playlist[index]);
+        current_index += 1;
+        if (current_index < playlist.length) {
+          player.loadVideoById(playlist[current_index]);
         }
       }
     }
