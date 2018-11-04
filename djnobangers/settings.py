@@ -137,6 +137,5 @@ CHANNEL_LAYERS = {
         'CONFIG': {
             "hosts": [('0.0.0.0', 6379)],
         },
-        'ROUTING': 'realtime.routing.channel_routing',
     },
 }
