@@ -4,6 +4,8 @@ from fabric.api import cd, env, local, run
 
 REPO_URL = 'https://github.com/drewtaylors/djnobangers.git'
 
+env.key_filename = '../djnobangers-key.pem'
+
 def deploy():
     site_folder = f'/home/{env.user}/sites/{env.host}'
     run(f'mkdir -p /home/{env.user}/sites/{env.host}')
