@@ -64,9 +64,13 @@
         if (e.keyCode === 13) {     // enter, return
           var messageInputDom = document.querySelector('#id_new_item');
           var message = messageInputDom.value;
-          playlistSocket.send(JSON.stringify({
-              'message': message
-          }));
+          var url = ytVidId(message);
+
+          if (url) {
+            playlistSocket.send(JSON.stringify({
+                'message': url
+            }));
+          }
 
           messageInputDom.value = '';
         }
@@ -117,5 +121,12 @@
     function stopVideo() {
       player.stopVideo();
     }
+
+    // https://stackoverflow.com/a/10315969/624466
+    function ytVidId(url) {
+      var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+      return (url.match(p)) ? RegExp.$1 : false;
+    }
+
   </script>
 {% endblock %}
