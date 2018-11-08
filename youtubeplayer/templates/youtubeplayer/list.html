@@ -39,13 +39,16 @@
 
     // generate playlist in JS and HTML
     {% for item in list.item_set.all %}
-      addSong('{{ item.url }}');
+      addSong('{{ item.url }}', '{{ item.title }}');
     {% endfor %}
 
-    function addSong(url) {
-      playlist.push(url);
+    function addSong(url, title) {
+      playlist.push({
+        'url': url, 
+        'title': title,
+      });
       var row = table.insertRow(-1);
-      row.insertCell(0).innerHTML = table.rows.length + ": " + url;
+      row.insertCell(0).innerHTML = table.rows.length + ": " + title;
       row.onclick = function() {
         current_index = row.rowIndex;
         player.loadVideoById(url);
@@ -62,7 +65,8 @@
     playlistSocket.onmessage = function(e) {
         var data = JSON.parse(e.data);
         var message = data['message'];
-        addSong(message);
+        var title = data['title'];
+        addSong(message, title);
     };
 
     playlistSocket.onclose = function(e) {
@@ -124,7 +128,7 @@
         table.rows[current_index].style.backgroundColor = '#212529';
         current_index += 1;
         if (current_index < playlist.length) {
-          player.loadVideoById(playlist[current_index]);
+          player.loadVideoById(playlist[current_index]['url']);
           table.rows[current_index].style.backgroundColor = '#6B7885';
         }
       }
