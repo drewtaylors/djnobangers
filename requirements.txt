@@ -7,3 +7,4 @@ asgiref==2.3.2
 asgi-redis==1.4.3
 redis==2.10.6
 daphne==2.2.2
+requests==2.20.0
