@@ -14,7 +14,7 @@ def new_list(request):
     list_ = List.objects.create()
     url = parse_youtube_url(request.POST['item_url'])
     title = YouTubeClient.get_youtube_title(url)
-    Item.objects.create(url=url, title=title, list=list_)
+    Item.objects.create(url=url, title=title, media='youtube', list=list_)
     return redirect(f'/youtubeplayer/{list_.id}/')
 
 def view_list(request, list_id):
@@ -23,6 +23,6 @@ def view_list(request, list_id):
 
 def add_url(request, list_id):
     list_ = List.objects.get(id=list_id)
-    Item.objects.create(url=parse_youtube_url(request.POST['item_url']), title='', list=list_)
+    Item.objects.create(url=parse_youtube_url(request.POST['item_url']), title='', media='', list=list_)
     return redirect(f'/youtubeplayer/{list_.id}/')
     

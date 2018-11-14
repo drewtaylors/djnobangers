@@ -39,13 +39,14 @@
 
     // generate playlist in JS and HTML
     {% for item in list.item_set.all %}
-      addSong('{{ item.url }}', '{{ item.title }}');
+      addSong('{{ item.url }}', '{{ item.title }}', '{{ item.media }}');
     {% endfor %}
 
-    function addSong(url, title) {
+    function addSong(url, title, media) {
       playlist.push({
         'url': url, 
         'title': title,
+        'media': media,
       });
       var row = table.insertRow(-1);
       row.insertCell(0).innerHTML = table.rows.length + ": " + title;
@@ -66,7 +67,8 @@
         var data = JSON.parse(e.data);
         var message = data['message'];
         var title = data['title'];
-        addSong(message, title);
+        var media = data['media'];
+        addSong(message, title, media);
     };
 
     playlistSocket.onclose = function(e) {
