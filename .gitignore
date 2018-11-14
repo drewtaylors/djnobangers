@@ -10,3 +10,4 @@ virtualenv
 *static*
 db_test.sqlite3
 djnobangers-key.pem
+secrets
